@@ -18,7 +18,35 @@
 2) 해당 템플릿 파일을 프로젝트 루트로 복사
    - GitHub: `.github/workflows/security.yml`
 3) 커밋/푸시하면 보안 파이프라인이 자동 실행됩니다.
- 
+   - 참고: 데모용 시크릿 파일로 인해 GitHub Push Protection이 푸시를 차단할 수 있습니다. 데모 목적이라면 차단 메시지의 'allow the secret' 링크로 1회 우회 후 실행하세요. 이후에는 파일 삭제/히스토리 정리를 권장합니다.
+   1) 우회 실행 방법
+      1) 차단 메시지에서 링크 찾기
+      
+         git push 후 터미널에 아래와 비슷한 메시지가 보입니다:
+         - remote: error: GH013: Repository rule violations...
+         - Push cannot contain secrets
+         - To push, remove secret from commit(s) or follow this URL to allow the secret.
+         - 그 아래에 https://github.com/.../security/secret-scanning/unblock-secret/... 형태의 링크가 나옵니다.
+           ![img_1.png](img_1.png)
+         - 이 링크가 바로 “allow the secret” 우회 링크입니다. 링크를 클릭(또는 복사해서 브라우저 주소창에 붙여넣기)하세요.
+
+   2) GitHub에서 우회 승인하기
+      ![img.png](img.png)
+      - 브라우저가 열리면 GitHub 로그인 화면이 나올 수 있습니다. 로그인 후 진행하세요.
+      - 페이지 제목/내용 예시:
+        - Secret type(예: Slack API Token)
+      - 다음 순서로 진행합니다:
+        1) “Reason” 또는 “Justification” 박스에 우회 사유를 간단히 작성합니다. 예: 데모/교육 목적으로 1회 우회하여 CI 파이프라인 동작 확인.
+        2) 안내에 따라 확인 체크박스를 선택합니다.
+        3) Allow secret 또는 Unblock 버튼을 클릭합니다.
+        - 참고 사항
+          - 저장소/조직 정책에 따라 우회가 금지되어 있을 수 있습니다. 이 경우 관리자가 설정을 바꿔주거나, 별도 테스트 저장소/브랜치를 사용해야 합니다.
+          - 우회 기록은 감사 로그에 남으며, 해당 시크릿에 대한 보안 알림이 생성될 수 있습니다.
+   3) 다시 push 하기
+    - 브라우저에서 우회가 승인되면 터미널로 돌아와 같은 명령을 그대로 다시 실행하세요:
+      git push origin main
+    - 이제는 같은 커밋이 통과되어 푸시됩니다.
+    - 푸시가 완료되면 GitHub Actions의 보안 파이프라인이 자동으로 실행됩니다.
 로컬에서 테스트하기
 - Secret Scan: `gitleaks detect --source . --redact`
 - Dependency Audit (Gradle 예): `./gradlew dependencyCheckAnalyze cyclonedxBom`
