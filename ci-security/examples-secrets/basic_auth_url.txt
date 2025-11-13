@@ -1,0 +1,3 @@
+# Example 5: Basic Auth credentials in URL (FAKE)
+# Matches gitleaks basic auth credential in URL pattern
+FETCH_URL=http://testuser:testpassword@internal.example.com/private

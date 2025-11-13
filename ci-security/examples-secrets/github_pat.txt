@@ -1,0 +1,3 @@
+# Example 2: GitHub Personal Access Token (FAKE)
+# Matches gitleaks 'GitHub' token pattern
+GITHUB_PAT=ghp_abcdefghijklmnopqrstuvwxyz0123456789AB

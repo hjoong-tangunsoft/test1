@@ -1,0 +1,3 @@
+# Example 3: Slack Bot/User Token (FAKE)
+# Matches gitleaks Slack token patterns (e.g., xoxb-, xoxp-, xoxa-2-)
+SLACK_BOT_TOKEN=xoxb-123456789012-123456789012-ABCDEFGHIJKLMNOPQRSTUVWXYZ
